@@ -33,6 +33,8 @@ function App() {
 }
 ```
 
+No additional CSS import is required.
+
 ## Features
 
 - **Toggle on/off** – Enable the overlay with a single shortcut
@@ -45,7 +47,6 @@ function App() {
 ## Requirements
 
 - React 18+
-- Tailwind CSS v4 with package content included
 
 ## License
 

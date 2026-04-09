@@ -7,8 +7,4 @@ export default defineConfig({
   target: "es2020",
   bundle: true,
   clean: true,
-  external: ["./styles.css"],
-  loader: {
-    ".css": "css",
-  },
 });
