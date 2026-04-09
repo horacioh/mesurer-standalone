@@ -1,0 +1,20 @@
+{
+  "name": "mesurer",
+  "description": "Measure and align everything on localhost.",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "pnpm -r build",
+    "build:site": "pnpm --filter easing-gradients-site build",
+    "build:pkg": "pnpm --filter easing-gradients build",
+    "dev": "pnpm -r dev",
+    "dev:site": "pnpm --filter easing-gradients-site dev",
+    "dev:pkg": "pnpm --filter easing-gradients dev",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test"
+  }
+}
