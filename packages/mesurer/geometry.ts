@@ -5,20 +5,14 @@ export const getViewportSize = () => ({
   height: typeof window === "undefined" ? 1 : window.innerHeight || 1,
 })
 
-export const normalizeRect = (
-  rect: Rect,
-  viewport = getViewportSize()
-): NormalizedRect => ({
+export const normalizeRect = (rect: Rect, viewport = getViewportSize()): NormalizedRect => ({
   left: rect.left / viewport.width,
   top: rect.top / viewport.height,
   width: rect.width / viewport.width,
   height: rect.height / viewport.height,
 })
 
-export const denormalizeRect = (
-  rect: NormalizedRect,
-  viewport = getViewportSize()
-): Rect => ({
+export const denormalizeRect = (rect: NormalizedRect, viewport = getViewportSize()): Rect => ({
   left: rect.left * viewport.width,
   top: rect.top * viewport.height,
   width: rect.width * viewport.width,
@@ -33,8 +27,7 @@ export const getRectFromPoints = (start: Point, end: Point): Rect => {
   return { left, top, width, height }
 }
 
-export const clamp = (value: number, min: number, max: number) =>
-  Math.max(min, Math.min(max, value))
+export const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value))
 
 export const rectsOverlap = (rectA: Rect, rectB: Rect) =>
   rectA.left < rectB.left + rectB.width &&
@@ -63,17 +56,7 @@ export const rectAlmostEqual = (a: Rect, b: Rect, epsilon = 0.25) =>
 export const getDistanceToRect = (point: Point, rect: Rect) => {
   const right = rect.left + rect.width
   const bottom = rect.top + rect.height
-  const dx =
-    point.x < rect.left
-      ? rect.left - point.x
-      : point.x > right
-        ? point.x - right
-        : 0
-  const dy =
-    point.y < rect.top
-      ? rect.top - point.y
-      : point.y > bottom
-        ? point.y - bottom
-        : 0
+  const dx = point.x < rect.left ? rect.left - point.x : point.x > right ? point.x - right : 0
+  const dy = point.y < rect.top ? rect.top - point.y : point.y > bottom ? point.y - bottom : 0
   return Math.hypot(dx, dy)
 }

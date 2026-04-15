@@ -19,10 +19,7 @@ export const getHoveredGuide = (point: Point | null, guides: Guide[]) => {
   return closest
 }
 
-export const getSelectedGuide = (
-  guides: Guide[],
-  selectedGuideIds: string[]
-) => {
+export const getSelectedGuide = (guides: Guide[], selectedGuideIds: string[]) => {
   if (selectedGuideIds.length === 0) return null
   const lastId = selectedGuideIds[selectedGuideIds.length - 1]
   return guides.find((guide) => guide.id === lastId) ?? null
@@ -40,9 +37,7 @@ export const getOptionPairOverlay = (params: {
 
   const selectedElement = params.selectedGuide
     ? null
-    : (params.primarySelectedMeasurement.elementRef ??
-      params.selectedElementRef ??
-      null)
+    : (params.primarySelectedMeasurement.elementRef ?? params.selectedElementRef ?? null)
 
   const selectedTarget: OptionTarget | null = params.selectedGuide
     ? {
@@ -77,11 +72,7 @@ export const getOptionPairOverlay = (params: {
     }
   }
 
-  if (
-    selectedTarget.guideId &&
-    hoverTarget.guideId &&
-    selectedTarget.guideId === hoverTarget.guideId
-  ) {
+  if (selectedTarget.guideId && hoverTarget.guideId && selectedTarget.guideId === hoverTarget.guideId) {
     return null
   }
 
@@ -89,7 +80,7 @@ export const getOptionPairOverlay = (params: {
     selectedTarget.rect,
     hoverTarget.rect,
     selectedTarget.element ?? null,
-    hoverTarget.element ?? null
+    hoverTarget.element ?? null,
   )
 }
 
@@ -101,16 +92,10 @@ export const getOptionContainerLines = (params: {
   selectedElement: HTMLElement | null
   hoverElement: HTMLElement | null
 }) => {
-  if (
-    !params.altPressed ||
-    !params.primarySelectedMeasurement ||
-    params.optionPairOverlay
-  )
-    return null
+  if (!params.altPressed || !params.primarySelectedMeasurement || params.optionPairOverlay) return null
   if (params.selectedGuideIds.length > 0) return null
 
-  let containerElement: HTMLElement | null =
-    params.selectedElement?.parentElement ?? null
+  let containerElement: HTMLElement | null = params.selectedElement?.parentElement ?? null
   if (
     params.selectedElement &&
     params.hoverElement &&
@@ -121,9 +106,7 @@ export const getOptionContainerLines = (params: {
   }
 
   const containerRect =
-    containerElement &&
-    containerElement !== document.body &&
-    containerElement !== document.documentElement
+    containerElement && containerElement !== document.body && containerElement !== document.documentElement
       ? getRectFromDom(containerElement)
       : {
           left: 0,

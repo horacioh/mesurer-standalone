@@ -1,8 +1,8 @@
-import CodeBlock from "./code-block";
+import CodeBlock from "./code-block"
 
 type InstallCommandProps = {
-  children: string;
-};
+  children: string
+}
 
 export default function InstallCommand({ children }: InstallCommandProps) {
   return (
@@ -10,5 +10,5 @@ export default function InstallCommand({ children }: InstallCommandProps) {
       <span className="text-muted select-none">$ </span>
       {children}
     </CodeBlock>
-  );
+  )
 }

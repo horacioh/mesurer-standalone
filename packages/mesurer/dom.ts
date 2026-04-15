@@ -5,9 +5,7 @@ import { createId } from "./utils"
 const getElementLabel = (element: HTMLElement) => {
   const tag = element.tagName.toLowerCase()
   const id = element.id ? `#${element.id}` : ""
-  const className = element.className
-    ? `.${element.className.toString().split(" ")[0]}`
-    : ""
+  const className = element.className ? `.${element.className.toString().split(" ")[0]}` : ""
   return `${tag}${id}${className}`
 }
 
@@ -54,14 +52,12 @@ export const getBodyElementsCached = () => {
   }
   cachedFrame = frame
   cachedElements = Array.from(document.querySelectorAll("body *")).filter(
-    (element): element is HTMLElement => element instanceof HTMLElement
+    (element): element is HTMLElement => element instanceof HTMLElement,
   )
   return cachedElements
 }
 
-export const getInspectMeasurement = (
-  element: HTMLElement
-): InspectMeasurement => {
+export const getInspectMeasurement = (element: HTMLElement): InspectMeasurement => {
   const rect = element.getBoundingClientRect()
   const style = window.getComputedStyle(element)
   const padding = {
@@ -105,10 +101,7 @@ export const getInspectMeasurement = (
   }
 }
 
-export const updateMeasurementForResize = (
-  measurement: Measurement,
-  viewport = getViewportSize()
-): Measurement => {
+export const updateMeasurementForResize = (measurement: Measurement, viewport = getViewportSize()): Measurement => {
   let rect = measurement.rect
   if (measurement.elementRef && document.contains(measurement.elementRef)) {
     rect = getRectFromDom(measurement.elementRef)

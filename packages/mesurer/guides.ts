@@ -11,9 +11,7 @@ export const getGuideRect = (guide: Guide): Rect => {
 }
 
 export const getGuideDistance = (guide: Guide, point: Point) =>
-  guide.orientation === "vertical"
-    ? Math.abs(guide.position - point.x)
-    : Math.abs(guide.position - point.y)
+  guide.orientation === "vertical" ? Math.abs(guide.position - point.x) : Math.abs(guide.position - point.y)
 
 export const getSnapGuidePosition = (params: {
   orientation: Guide["orientation"]
@@ -35,22 +33,15 @@ export const getSnapGuidePosition = (params: {
   for (const element of elements) {
     if (!(element instanceof HTMLElement)) continue
     if (overlayNode && overlayNode.contains(element)) continue
-    if (element === document.body || element === document.documentElement)
-      continue
+    if (element === document.body || element === document.documentElement) continue
     const rect = getRectFromDomCached(element)
     if (rect.width <= 2 || rect.height <= 2) continue
     if (orientation === "vertical") {
-      if (
-        point.x < rect.left - GUIDE_SNAP_DISTANCE ||
-        point.x > rect.left + rect.width + GUIDE_SNAP_DISTANCE
-      ) {
+      if (point.x < rect.left - GUIDE_SNAP_DISTANCE || point.x > rect.left + rect.width + GUIDE_SNAP_DISTANCE) {
         continue
       }
     } else {
-      if (
-        point.y < rect.top - GUIDE_SNAP_DISTANCE ||
-        point.y > rect.top + rect.height + GUIDE_SNAP_DISTANCE
-      ) {
+      if (point.y < rect.top - GUIDE_SNAP_DISTANCE || point.y > rect.top + rect.height + GUIDE_SNAP_DISTANCE) {
         continue
       }
     }
@@ -59,10 +50,7 @@ export const getSnapGuidePosition = (params: {
         ? [rect.left, rect.left + rect.width, rect.left + rect.width / 2]
         : [rect.top, rect.top + rect.height, rect.top + rect.height / 2]
     candidates.forEach((candidate) => {
-      const distance =
-        orientation === "vertical"
-          ? Math.abs(candidate - point.x)
-          : Math.abs(candidate - point.y)
+      const distance = orientation === "vertical" ? Math.abs(candidate - point.x) : Math.abs(candidate - point.y)
       if (distance > GUIDE_SNAP_DISTANCE) return
       if (distance < bestDistance) {
         bestValue = candidate
@@ -74,10 +62,7 @@ export const getSnapGuidePosition = (params: {
   guides.forEach((guide) => {
     if (guide.id === params.draggingGuideId) return
     const candidate = guide.position
-    const distance =
-      orientation === "vertical"
-        ? Math.abs(candidate - point.x)
-        : Math.abs(candidate - point.y)
+    const distance = orientation === "vertical" ? Math.abs(candidate - point.x) : Math.abs(candidate - point.y)
     if (distance > GUIDE_SNAP_DISTANCE) return
     if (distance < bestDistance) {
       bestValue = candidate
@@ -85,11 +70,7 @@ export const getSnapGuidePosition = (params: {
     }
   })
 
-  return bestDistance <= GUIDE_SNAP_DISTANCE
-    ? bestValue
-    : orientation === "vertical"
-      ? point.x
-      : point.y
+  return bestDistance <= GUIDE_SNAP_DISTANCE ? bestValue : orientation === "vertical" ? point.x : point.y
 }
 
 export const getNearestElementToGuide = (params: {
@@ -105,14 +86,9 @@ export const getNearestElementToGuide = (params: {
   for (const element of elements) {
     if (!(element instanceof HTMLElement)) continue
     if (params.overlayNode && params.overlayNode.contains(element)) continue
-    if (element === document.body || element === document.documentElement)
-      continue
+    if (element === document.body || element === document.documentElement) continue
     const rect = getRectFromDomCached(element)
-    if (
-      rect.width < MIN_SINGLE_TARGET_SIZE ||
-      rect.height < MIN_SINGLE_TARGET_SIZE
-    )
-      continue
+    if (rect.width < MIN_SINGLE_TARGET_SIZE || rect.height < MIN_SINGLE_TARGET_SIZE) continue
 
     const distance =
       params.guide.orientation === "vertical"
@@ -128,10 +104,7 @@ export const getNearestElementToGuide = (params: {
             : 0
 
     const area = rect.width * rect.height
-    if (
-      distance < bestDistance ||
-      (distance === bestDistance && area < bestArea)
-    ) {
+    if (distance < bestDistance || (distance === bestDistance && area < bestArea)) {
       bestDistance = distance
       bestArea = area
       bestElement = element

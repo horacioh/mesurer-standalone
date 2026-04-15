@@ -3,10 +3,7 @@
   "description": "Measure and align everything on localhost.",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "workspaces": ["apps/*", "packages/*"],
   "scripts": {
     "build": "pnpm --filter mesurer build && pnpm --filter mesurer-site build",
     "build:site": "pnpm --filter mesurer-site build",
@@ -14,7 +11,17 @@
     "dev": "pnpm -r dev",
     "dev:site": "pnpm --filter mesurer-site dev",
     "dev:pkg": "pnpm --filter mesurer dev",
-    "lint": "pnpm -r lint",
-    "test": "pnpm -r test"
-  }
+    "lint": "biome check .",
+    "lint:fix": "biome check . --fix",
+    "format": "biome format . --write",
+    "typecheck": "pnpm --filter mesurer typecheck",
+    "test": "pnpm --filter mesurer test"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["@biomejs/biome", "esbuild"]
+  },
+  "packageManager": "pnpm@10.32.0+sha512.9b2634bb3fed5601c33633f2d92593f506270a3963b8c51d2b2d6a828da615ce4e9deebef9614ccebbc13ac8d3c0f9c9ccceb583c69c8578436fa477dbb20d70"
 }

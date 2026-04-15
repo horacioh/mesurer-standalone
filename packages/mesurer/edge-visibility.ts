@@ -7,8 +7,7 @@ export type EdgeVisibility = {
   left: boolean
 }
 
-const rangesOverlap = (a1: number, a2: number, b1: number, b2: number) =>
-  Math.min(a2, b2) - Math.max(a1, b1) > 0
+const rangesOverlap = (a1: number, a2: number, b1: number, b2: number) => Math.min(a2, b2) - Math.max(a1, b1) > 0
 
 export const getEdgeVisibilityForRects = (rects: Rect[], epsilon = 1) => {
   const visibility: EdgeVisibility[] = rects.map(() => ({

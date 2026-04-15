@@ -7,8 +7,9 @@
 
 [![npm version](https://img.shields.io/npm/v/mesurer)](https://www.npmjs.com/package/mesurer)
 [![downloads](https://img.shields.io/npm/dm/mesurer)](https://www.npmjs.com/package/mesurer)
+[![CI](https://github.com/ibelick/mesurer/actions/workflows/ci.yml/badge.svg)](https://github.com/ibelick/mesurer/actions/workflows/ci.yml)
 
-**[Mesurer](https://mesurer.ibelick.com)** is a lightweight measurement and alignment overlay for React apps. Toggle it on, select elements, and measure distances directly in the browser.
+**[Mesurer](https://mesurer.ibelick.com)** is a lightweight measurement and alignment overlay for any web app. Framework-agnostic — works with React, Vue, Svelte, Solid, plain HTML, or anything that runs in a browser.
 
 [Full documentation](https://mesurer.ibelick.com/)
 
@@ -20,20 +21,83 @@ npm install mesurer
 
 ## Usage
 
-```tsx
-import { Measurer } from "mesurer";
+```js
+import { createMesurer } from "mesurer"
+
+const mesurer = createMesurer()
+```
+
+That's it. No framework adapter needed, no CSS import required.
+
+### Options
+
+```js
+const mesurer = createMesurer({
+  highlightColor: "oklch(0.62 0.18 255)",
+  guideColor: "oklch(0.63 0.26 29.23)",
+  persistOnReload: false,
+})
+```
+
+### Instance methods
+
+```js
+mesurer.enable()   // Turn on
+mesurer.disable()  // Turn off
+mesurer.toggle()   // Toggle on/off
+mesurer.destroy()  // Remove from DOM and clean up all listeners
+```
+
+## Framework examples
+
+### React
+
+```jsx
+import { useEffect } from "react"
+import { createMesurer } from "mesurer"
 
 function App() {
-  return (
-    <>
-      <YourApp />
-      <Measurer />
-    </>
-  );
+  useEffect(() => {
+    const mesurer = createMesurer()
+    return () => mesurer.destroy()
+  }, [])
+
+  return <YourApp />
 }
 ```
 
-No additional CSS import is required.
+### Vue
+
+```js
+// main.ts
+import { createMesurer } from "mesurer"
+createMesurer()
+```
+
+### Svelte
+
+```js
+// main.ts
+import { createMesurer } from "mesurer"
+createMesurer()
+```
+
+### Solid
+
+```js
+// main.tsx
+import { createMesurer } from "mesurer"
+createMesurer()
+```
+
+### Plain HTML
+
+```html
+<script type="module">
+  import { createMesurer } from "mesurer"
+  createMesurer()
+</script>
+```
 
 ## Props
 
@@ -44,7 +108,7 @@ No additional CSS import is required.
 | `hoverHighlightEnabled` | Disables hover highlight and deselects on click when `false`. |
 | `persistOnReload` | Persists state in `localStorage` as `mesurer-state` when `true`. |
 
-## Commands
+## Keyboard shortcuts
 
 | Shortcut | Action |
 | --- | --- |
@@ -61,17 +125,26 @@ No additional CSS import is required.
 
 ## Features
 
-- **Toggle on/off** – Enable the overlay with a single shortcut
-- **Select mode** – Click elements to measure their bounds
-- **Guides mode** – Add vertical or horizontal guides
-- **Distance overlays** – Hold Alt for quick spacing checks
-- **Undo/redo** – Command history for guide and measurement changes
-- **Persist state** – Keep guides and measurements on reload
+- **Framework-agnostic** — works in any web app, no adapter needed
+- **Zero config** — styles are auto-injected, no CSS import required
+- **Toggle on/off** — enable the overlay with a single shortcut
+- **Select mode** — click elements to measure their bounds
+- **Guides mode** — add vertical or horizontal guides
+- **Distance overlays** — hold Alt for quick spacing checks
+- **Undo/redo** — command history for guide and measurement changes
+- **Persist state** — keep guides and measurements on reload
 
-## Requirements
+## Development
 
-- React 18+
+```bash
+pnpm install
+pnpm build:pkg
+pnpm test
+pnpm lint
+```
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for more details.
 
 ## License
 
-Licensed under the MIT License.
+Licensed under the [MIT License](./LICENSE).

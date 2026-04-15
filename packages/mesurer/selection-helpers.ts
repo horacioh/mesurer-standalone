@@ -3,11 +3,8 @@ import type { InspectMeasurement, Point } from "./types"
 
 export const getPrimarySelectedMeasurement = (
   selectedMeasurements: InspectMeasurement[],
-  selectedMeasurement: InspectMeasurement | null
-) =>
-  selectedMeasurements.length > 0
-    ? selectedMeasurements[selectedMeasurements.length - 1]
-    : selectedMeasurement
+  selectedMeasurement: InspectMeasurement | null,
+) => (selectedMeasurements.length > 0 ? selectedMeasurements[selectedMeasurements.length - 1] : selectedMeasurement)
 
 export const getSelectedMeasurementHit = (params: {
   point: Point
@@ -36,10 +33,7 @@ export const getSelectedMeasurementHit = (params: {
     if (!(element instanceof HTMLElement)) continue
     if (params.overlayNode && params.overlayNode.contains(element)) continue
     for (const candidate of candidates) {
-      if (
-        candidate.element === element ||
-        candidate.element.contains(element)
-      ) {
+      if (candidate.element === element || candidate.element.contains(element)) {
         return candidate.measurement
       }
     }

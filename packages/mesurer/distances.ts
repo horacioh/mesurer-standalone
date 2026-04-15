@@ -1,9 +1,4 @@
-import {
-  clamp,
-  denormalizeRect,
-  getViewportSize,
-  normalizeRect,
-} from "./geometry"
+import { clamp, denormalizeRect, getViewportSize, normalizeRect } from "./geometry"
 import type { DistanceOverlay, Rect } from "./types"
 import { createId } from "./utils"
 
@@ -11,7 +6,7 @@ export const getDistanceOverlay = (
   rectA: Rect,
   rectB: Rect,
   elementRefA?: HTMLElement | null,
-  elementRefB?: HTMLElement | null
+  elementRefB?: HTMLElement | null,
 ): DistanceOverlay => {
   const viewport = getViewportSize()
   const normalizedRectA = normalizeRect(rectA, viewport)
@@ -67,11 +62,7 @@ export const getDistanceOverlay = (
       x2: clamp(segment.x2, 0, window.innerWidth),
       y2: clamp(segment.y2, 0, window.innerHeight),
     }))
-    .filter(
-      (segment) =>
-        Math.abs(segment.x1 - segment.x2) > 0.5 ||
-        Math.abs(segment.y1 - segment.y2) > 0.5
-    )
+    .filter((segment) => Math.abs(segment.x1 - segment.x2) > 0.5 || Math.abs(segment.y1 - segment.y2) > 0.5)
 
   return {
     id: createId(),
@@ -87,14 +78,9 @@ export const getDistanceOverlay = (
   }
 }
 
-export const updateDistanceForResize = (
-  distance: DistanceOverlay,
-  viewport = getViewportSize()
-): DistanceOverlay => {
-  const normalizedRectA =
-    distance.normalizedRectA ?? normalizeRect(distance.rectA)
-  const normalizedRectB =
-    distance.normalizedRectB ?? normalizeRect(distance.rectB)
+export const updateDistanceForResize = (distance: DistanceOverlay, viewport = getViewportSize()): DistanceOverlay => {
+  const normalizedRectA = distance.normalizedRectA ?? normalizeRect(distance.rectA)
+  const normalizedRectB = distance.normalizedRectB ?? normalizeRect(distance.rectB)
 
   let rectA = distance.rectA
   let rectB = distance.rectB
@@ -111,12 +97,7 @@ export const updateDistanceForResize = (
     rectB = denormalizeRect(normalizedRectB, viewport)
   }
 
-  const updated = getDistanceOverlay(
-    rectA,
-    rectB,
-    distance.elementRefA,
-    distance.elementRefB
-  )
+  const updated = getDistanceOverlay(rectA, rectB, distance.elementRefA, distance.elementRefB)
 
   return {
     ...updated,

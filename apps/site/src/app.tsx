@@ -1,24 +1,22 @@
-import { Measurer } from "mesurer";
-import InstallCommand from "./components/install-command";
-import CodeBlock from "./components/code-block";
-import { getPackageVersion } from "./utils/get-package-version";
+import { createMesurer } from "mesurer"
+import { useEffect } from "react"
+import CodeBlock from "./components/code-block"
+import InstallCommand from "./components/install-command"
+import { getPackageVersion } from "./utils/get-package-version"
 
-const version = getPackageVersion();
+const version = getPackageVersion()
 
 export function App() {
+  useEffect(() => {
+    const mesurer = createMesurer()
+    return () => mesurer.destroy()
+  }, [])
+
   return (
     <main className="min-h-screen px-5 py-20">
-      <Measurer />
       <div className="mx-auto flex max-w-2xl flex-col gap-14">
         <div className="flex flex-col gap-4">
-          <img
-            src="/logo.webp"
-            alt="Mesurer"
-            className="h-9 w-9"
-            width={36}
-            height={36}
-            loading="eager"
-          />
+          <img src="/logo.webp" alt="Mesurer" className="h-9 w-9" width={36} height={36} loading="eager" />
           <div className="flex items-end gap-2">
             <h1 className="font-medium leading-tight text-strong">Mesurer</h1>
             <a
@@ -47,31 +45,20 @@ export function App() {
               </svg>
             </a>
           </div>
-          <p className="max-w-xl leading-relaxed text-muted">
-            Measure and align everything on localhost.
-          </p>
+          <p className="max-w-xl leading-relaxed text-muted">Measure and align everything on localhost.</p>
         </div>
 
         <div className="flex flex-col gap-4">
           <p className="font-[450] text-strong">Installation</p>
           <InstallCommand>npm install mesurer</InstallCommand>
-          <p>
-            Then add the component preference at the root of your application:
-          </p>
-          <CodeBlock as="pre">{`import { Measurer } from "mesurer";
+          <p>Then add the component preference at the root of your application:</p>
+          <CodeBlock as="pre">{`import { createMesurer } from "mesurer"
 
-export default function RootLayout({ children }) {
-  return (
-    <html>
-      <head>
-        {process.env.NODE_ENV === "development" && (
-          <Measurer />
-        )}
-      </head>
-      <body>{children}</body>
-    </html>
-  );
-}`}</CodeBlock>
+// Initialize anywhere in your app
+const mesurer = createMesurer()
+
+// Optional: cleanup when done
+// mesurer.destroy()`}</CodeBlock>
         </div>
 
         <div className="flex flex-col gap-4">
@@ -82,8 +69,7 @@ export default function RootLayout({ children }) {
                 <code className="code">highlightColor</code>
               </div>
               <div className="max-w-[60%] text-right text-muted">
-                Base color for selection/hover overlays (defaults to{" "}
-                <code className="code">oklch(0.62 0.18 255)</code>)
+                Base color for selection/hover overlays (defaults to <code className="code">oklch(0.62 0.18 255)</code>)
               </div>
             </div>
             <div className="flex items-start justify-between gap-8 border-b border-border px-2 py-2">
@@ -91,8 +77,7 @@ export default function RootLayout({ children }) {
                 <code className="code">guideColor</code>
               </div>
               <div className="max-w-[60%] text-right text-muted">
-                Base color for guides (defaults to{" "}
-                <code className="code">oklch(0.63 0.26 29.23)</code>)
+                Base color for guides (defaults to <code className="code">oklch(0.63 0.26 29.23)</code>)
               </div>
             </div>
             <div className="flex items-start justify-between gap-8 border-b border-border px-2 py-2">
@@ -122,41 +107,31 @@ export default function RootLayout({ children }) {
               <div className="font-mono text-strong">
                 <code className="code">M</code>
               </div>
-              <div className="max-w-[60%] text-right text-balance text-muted">
-                Toggle measurer on/off
-              </div>
+              <div className="max-w-[60%] text-right text-balance text-muted">Toggle measurer on/off</div>
             </div>
             <div className="flex items-start justify-between gap-8 border-b border-border px-2 py-2">
               <div className="font-mono text-strong">
                 <code className="code">S</code>
               </div>
-              <div className="max-w-[60%] text-right text-balance text-muted">
-                Toggle Select mode
-              </div>
+              <div className="max-w-[60%] text-right text-balance text-muted">Toggle Select mode</div>
             </div>
             <div className="flex items-start justify-between gap-8 border-b border-border px-2 py-2">
               <div className="font-mono text-strong">
                 <code className="code">G</code>
               </div>
-              <div className="max-w-[60%] text-right text-balance text-muted">
-                Toggle Guides mode
-              </div>
+              <div className="max-w-[60%] text-right text-balance text-muted">Toggle Guides mode</div>
             </div>
             <div className="flex items-start justify-between gap-8 border-b border-border px-2 py-2">
               <div className="font-mono text-strong">
                 <code className="code">H</code>
               </div>
-              <div className="max-w-[60%] text-right text-balance text-muted">
-                Set guide orientation to horizontal
-              </div>
+              <div className="max-w-[60%] text-right text-balance text-muted">Set guide orientation to horizontal</div>
             </div>
             <div className="flex items-start justify-between gap-8 border-b border-border px-2 py-2">
               <div className="font-mono text-strong">
                 <code className="code">V</code>
               </div>
-              <div className="max-w-[60%] text-right text-balance text-muted">
-                Set guide orientation to vertical
-              </div>
+              <div className="max-w-[60%] text-right text-balance text-muted">Set guide orientation to vertical</div>
             </div>
             <div className="flex items-start justify-between gap-8 border-b border-border px-2 py-2">
               <div className="font-mono text-strong">
@@ -170,38 +145,29 @@ export default function RootLayout({ children }) {
               <div className="font-mono text-strong">
                 <code className="code">Esc</code>
               </div>
-              <div className="max-w-[60%] text-right text-balance text-muted">
-                Clear all measurements and guides
-              </div>
+              <div className="max-w-[60%] text-right text-balance text-muted">Clear all measurements and guides</div>
             </div>
             <div className="flex items-start justify-between gap-8 border-b border-border px-2 py-2">
               <div className="font-mono text-strong">
-                <code className="code">Backspace</code> /
-                <code className="code">Delete</code>
+                <code className="code">Backspace</code> /<code className="code">Delete</code>
               </div>
-              <div className="max-w-[60%] text-right text-balance text-muted">
-                Remove selected guides
-              </div>
+              <div className="max-w-[60%] text-right text-balance text-muted">Remove selected guides</div>
             </div>
             <div className="flex items-start justify-between gap-8 border-b border-border px-2 py-2">
               <div className="font-mono text-strong">
                 <code className="code">Cmd/Ctrl + Z</code>
               </div>
-              <div className="max-w-[60%] text-right text-balance text-muted">
-                Undo
-              </div>
+              <div className="max-w-[60%] text-right text-balance text-muted">Undo</div>
             </div>
             <div className="flex items-start justify-between gap-8 border-b border-border px-2 py-2">
               <div className="font-mono text-strong">
                 <code className="code">Cmd/Ctrl + Shift + Z</code>
               </div>
-              <div className="max-w-[60%] text-right text-balance text-muted">
-                Redo
-              </div>
+              <div className="max-w-[60%] text-right text-balance text-muted">Redo</div>
             </div>
           </div>
         </div>
       </div>
     </main>
-  );
+  )
 }

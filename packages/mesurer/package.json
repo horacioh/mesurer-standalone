@@ -17,12 +17,7 @@
     "./styles.css": "./dist/styles.css",
     "./package.json": "./package.json"
   },
-  "files": [
-    "dist",
-    "dist/styles.css",
-    "README.md",
-    "LICENSE"
-  ],
+  "files": ["dist", "dist/styles.css", "README.md", "LICENSE"],
   "sideEffects": ["*.css"],
   "publishConfig": {
     "access": "public"
@@ -38,25 +33,17 @@
   "scripts": {
     "build": "pnpm exec tailwindcss -i styles.css -o styles.generated.css && node scripts/generate-styles.mjs && tsup && pnpm exec tailwindcss -i styles.css -o dist/styles.css",
     "dev": "tsup --watch",
+    "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run typecheck && npm run build"
   },
-  "peerDependencies": {
-    "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
-  },
   "devDependencies": {
     "@tailwindcss/cli": "^4.2.2",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "jsdom": "^25.0.0",
     "tailwindcss": "^4.2.2",
     "tsup": "^8.5.0",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "vitest": "^3.0.0"
   },
-  "keywords": [
-    "measurement",
-    "alignment"
-  ]
+  "keywords": ["measurement", "alignment"]
 }
