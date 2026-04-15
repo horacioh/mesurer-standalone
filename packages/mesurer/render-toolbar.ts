@@ -183,7 +183,6 @@ export function createToolbar(store: Store, history: History): HTMLDivElement {
       className: cn(
         "absolute z-[70] w-44 rounded-lg border border-ink-200 bg-white p-1 shadow-[0px_10px_30px_rgba(0,0,0,0.08)] outline-none focus:outline-none flex flex-col gap-px",
         menuSide === "bottom" ? "top-full mt-2" : "bottom-full mb-2",
-        "right-0",
       ),
       tabIndex: "0",
     })
@@ -253,7 +252,18 @@ export function createToolbar(store: Store, history: History): HTMLDivElement {
     })
 
     guideMenuWrapper.appendChild(menuPanel)
-    requestAnimationFrame(() => menuPanel?.focus())
+    requestAnimationFrame(() => {
+      if (!menuPanel) return
+      menuPanel.focus()
+      const rect = menuPanel.getBoundingClientRect()
+      if (rect.right > window.innerWidth - 8) {
+        menuPanel.style.right = "0"
+        menuPanel.style.left = "auto"
+      } else if (rect.left < 8) {
+        menuPanel.style.left = "0"
+        menuPanel.style.right = "auto"
+      }
+    })
   }
 
   caretBtn.addEventListener("click", () => {
